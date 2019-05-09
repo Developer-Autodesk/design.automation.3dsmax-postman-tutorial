@@ -574,7 +574,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"activityId\": \"{{forgeAppNickname}}.executeScript+tutorial\",\n\t\"arguments\": {\n\t\t\"MaxFileName\": \"sceneName.max\",\n\t\t\"InputZip\": {\n            \"url\": \"{{zipFileSignedUrl}}\",\n            \"pathInZip\": \"./\",\n            \"verb\": \"get\"\n        },\n        \"MaxscriptToExecute\": {\n        \t\"url\": \"{{scriptFileSignedUrl}}\",\n            \"verb\": \"get\"\n        },\n        \"OutputZip\": {\n        \t\"url\": \"{{outputFileSignedUrl}}\",\n            \"verb\": \"put\"\n        }\n\t}\n}"
+					"raw": "{\n\t\"activityId\": \"{{forgeAppNickname}}.executeScript+tutorial\",\n\t\"arguments\": {\n\t\t\"MaxFileName\": \"sceneName.max\",\n\t\t\"InputZip\": {\n            \"url\": \"{{zipFileSignedUrl}}\",\n            \"verb\": \"get\"\n        },\n        \"MaxscriptToExecute\": {\n        \t\"url\": \"{{scriptFileSignedUrl}}\",\n            \"verb\": \"get\"\n        },\n        \"OutputZip\": {\n        \t\"url\": \"{{outputFileSignedUrl}}\",\n            \"verb\": \"put\"\n        }\n\t}\n}"
 				},
 				"url": {
 					"raw": "https://developer.api.autodesk.com/da/us-east/v3/workitems",

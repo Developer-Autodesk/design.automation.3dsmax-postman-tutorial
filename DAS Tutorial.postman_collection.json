@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b8734cc7-9040-4c54-980d-5dc4c304099b",
+		"_postman_id": "45280374-7ecc-4499-90cc-2bfab30473e8",
 		"name": "DAS Tutorial",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -679,7 +679,7 @@
 			"response": []
 		},
 		{
-			"name": "14- Delete forge app",
+			"name": "14- Delete forge app data in Design Automation",
 			"request": {
 				"method": "DELETE",
 				"header": [

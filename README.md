@@ -5,6 +5,9 @@ Basic tutorial on how to run a 3ds Max script in Design Automation V3
 This tutorial will demonstrate how to use Design Automation V3 to automate the execution of a script on a 3ds Max scene using postman.
 You can use your own script and max scene or the [samples](samples) provided.
 
+The postman collection for this tutorial contains only the requests necessary for the tutorial.
+A more complete postman collection for the Design Automation V3 API can be found [here](https://forge.autodesk.com/en/docs/design-automation/v3/developers_guide/postman/) to further explore the API.  
+
 ## Forge and Postman setup
 ### Creating ForgeApp
 Go to the forge website, create a new account if you don't have one and sign in.
@@ -62,6 +65,8 @@ If you wish to restart the tutorial or cleanup what have been created during it,
 To send a request you will simply have to press the "Send" button in postman.  However, make sure to read the instructions below for each request before sending it since some request might require you to enter some information.
 
 ### 1- Authentication
+[forge documentation](https://forge.autodesk.com/en/docs/oauth/v2/reference/http/authenticate-POST/)
+
 This request to the Authentication API will obtain a token with the scope require for this tutorial.  
 This token will be used by all the subsequent request inside the "Authorization" header to identify your forge app.
 This token will expire after one hour so you might need to execute the request again to get a new token if your expire.
@@ -73,6 +78,8 @@ Once the request is completed, postman will save the access_token received in th
 
 
 ### 2- Create Activity
+[forge documentation](https://forge.autodesk.com/en/docs/design-automation/v3/reference/http/activities-POST/)
+
 This request to the Design Automation V3 API will create an activity.
 In design automation an activity specify an action that can be executed using a specified engine.
 The request body contains the following fields.
@@ -81,7 +88,29 @@ The request body contains the following fields.
 The id of the activity to be created.  This should be unique for a given forge app.
 
 ##### commandLine 
-This define the command line to be executed. You use variable that will be replaced before executing your command line. The details of these variables can be found here (TODO ADD A LINK TO THE DOC)
+This define the command line to be executed. You use variable that will be replaced before executing your command line.
+This mechanism let you replace file path(s) value in command line that you tested locally with file path(s) that will make sense once the execution is launched in the Design Automation environment.
+
+Here are some example of variables can be used:
+
+```$(engine.path)``` 
+will be replaced by the path where the engine is installed.
+
+```$(args[myParam1].path)``` 
+for a given parameter with the key "myParam1", this will be replaced by the file path where the file got uploaded/downloaded to.
+If the parameter is a zip, it will be replaced by the path to the folder where the zip got unzipped.
+
+```$(args[myStringParam].value)``` 
+will be replaced by the string value provided at work item submission of the parameter with the key "myStringParam" (Only for argument using the "read" verb).
+
+```$(appbundles[myAppBundle].path)``` 
+will be replaced by the path where the "myAppBundle" app bundle have been unzipped.
+
+```$(setting[settingX].path)``` 
+will write to a file the value of the setting with "settingX" key and be replaced by the path to the file that was written.
+
+```$(setting[settingX].value)``` 
+will be replaced by the value of the setting with the "settingX" key.
 
 ##### engine
 This define the processing engine to be installed on the machine that will execute the action. (Auto CAD, Inventor, Revit, 3ds Max)
@@ -108,6 +137,8 @@ For this tutorial we define an output parameter that will zip the sub-folder nam
 
 
 ### 3- Create Activity Alias
+[forge documentation](https://forge.autodesk.com/en/docs/design-automation/v3/reference/http/activities-id-aliases-POST/)
+
 When submitting an activity to be executed to the Design Automation API V3, we must reference it by it's alias (see request 13). 
 An alias is like a tag that point to a particular version of an activity.
 The version an alias point to can be changed in the future as develop more version of a given activity.
@@ -118,6 +149,8 @@ This request will now create an alias named "tutorial" to reference version 1.
 
 
 ### 4- Create OSS bucket
+[forge documentation](https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-POST/)
+
 This request to the Data Management API will create a bucket in the object storage service (OSS) that we will use to store our input zip file, input script file and our resulting zip file.
 The bucket will be created with a random guid and the key to this bucket will be saved inside the "bucketKey" variable for sub-sequent request.
 
@@ -125,6 +158,8 @@ The bucket will be created with a random guid and the key to this bucket will be
 
 
 ### 5- Upload input zip file to OSS
+[forge documentation](https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectName-PUT/)
+
 This request to the Data Management API will upload the input zip file containing the 3ds Max file to the object storage service (OSS).
 Before sending the request you will need to select the file to be uploaded by pressing the "Choose files" button in the Body tab.
 If you wish to use the [samples](samples) provided in the tutorial, select the [input.zip](samples/input.zip) file.
@@ -133,6 +168,8 @@ Once the request is done, the "objectKey" value from the response body will be a
 ![5- Upload input zip file to OSS](images/5_upload_zip.png)
 
 ### 6- Upload input script to OSS
+[forge documentation](https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectName-PUT/)
+
 This request to the Data Management API will upload the input script file to the object storage service (OSS).
 Before sending the request you will need to select the file to be uploaded by pressing the "Choose files" button in the Body tab.
 If you wish to use the [samples](samples) provided in the tutorial, select the [TwistIt.ms](samples/TwistIt.ms) file.
@@ -143,6 +180,8 @@ Once the request is done, the "objectKey" value from the response body will be a
 
 
 ### 7- Get temporary download url for the input zip
+[forge documentation](https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectName-signed-POST/)
+
 This request to the Data Management API will create a temporary download url for the input zip file we uploaded to the Object Storage Service during request 5.
 We will provide this url to the Design Automation V3 API during request 11 when we send our work item to be executed.
 The design Automation API will use this url to download our zip file before executing the command line we defined inside our activity during request 2.
@@ -151,6 +190,7 @@ Once the request is done, the "signedUrl" value from the response body will be a
 ![7- Get Temporary download url for the input zip](images/7_get_zip_tmp_url.png)
 
 ### 8- Get temporary download url for input script
+[forge documentation](https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectName-signed-POST/)
 
 This request to the Data Management API will create a temporary download url for the script file we uploaded to the Object Storage Service during request 6.
 We will provide this url to the Design Automation V3 API during request 11 when we send our work item to be executed.
@@ -161,6 +201,7 @@ Once the request is done, the "signedUrl" value from the response body will be a
  
  
  ### 9- Get temporary upload url for the output script
+ [forge documentation](https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectName-signed-POST/)
  
  This request to the Data Management API will create a temporary upload url to a new object in the Object Storage Service.
  We will provide this url to the Design Automation V3 API during request 11 when we send our work item to be executed.
@@ -171,6 +212,8 @@ Once the request is done, the "signedUrl" value from the response body will be a
   
   
 ### 10- Get forge app nickname
+[forge documentation](https://forge.autodesk.com/en/docs/design-automation/v3/reference/http/forgeapps-id-GET/)
+
 This request to the Design Automation V3 will request your forge app nickname from the Design Automation API.
 By default this value will always be your forge app client id.  We will use this value to reference the activity and alias we created for it during request 11.
 Once the request is done, the body the response body value will be saved automatically inside a variable named "forgeAppNickname".
@@ -179,6 +222,8 @@ Once the request is done, the body the response body value will be saved automat
  
  
 ### 11- Send work item
+[forge documentation](https://forge.autodesk.com/en/docs/design-automation/v3/reference/http/workitems-POST/)
+
 This request to the Design Automation V3 API will launch the execution of the activity that was created during the request number 2.
 Once the request is done, the id of the work item will be automatically extracted from the body response and saved inside a variable name "workitemId" for sub-sequent requests.
 The body of the request contains the following fields.
@@ -208,6 +253,8 @@ This argument provide the signed url we created during request number 9.  This u
 
 
 ### 12- Get workitem status
+[forge documentation](https://forge.autodesk.com/en/docs/design-automation/v3/reference/http/workitems-id-GET/)
+
 This request to the Design Automation API V3 will query the status of the work item.
 We can use this request to determine when the work item is done executing.
 However, it is important to note that you can also define an url to be called once the work item is done instead of polling the status from this url.
@@ -219,20 +266,25 @@ You can use "reportUrl" value to download the log file of your work item executi
 ![12- Get workitem status](images/12_get_status.png)
 
 ### 13- Download output from OSS
+[forge documentation](https://forge.autodesk.com/en/docs/data/v2/reference/http/buckets-:bucketKey-objects-:objectName-GET/)
+
 This request to the Data Management API will let you download the result zip file that have been uploaded by Design Automation to the Object Storage Service (OSS).
 To save the result back to disk locally, press the download button once the response have been received.
 
 ![13- Download output from OSS](images/13_download_results.png)
 
 
-### 14- Delete forge app
+### 14- Delete forge app data from Design Automation
+[forge documentation](https://forge.autodesk.com/en/docs/design-automation/v3/reference/http/forgeapps-id-DELETE/)
+
 This request to the Design Automation V3 API will delete everything owned by your forge app inside the Design Automation V3 API.
 Be really cautious when using this request if you are using a forge app that already have useful data inside the Design Automation V3 API.
 
-![14- Delete forge app](images/14_delete_forge_app.png)
+![14- Delete forge app data from Design Automation](images/14_delete_forge_app.png)
 
 
 ### 15- Delete OSS bucket
+
 This request to the Data Management API will delete the bucket that was created by request number 4 and every file that it contains.
 
 ![15- Delete OSS Bucket](images/15_delete_OSS_bucket.png)

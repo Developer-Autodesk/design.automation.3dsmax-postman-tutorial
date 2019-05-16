@@ -45,7 +45,7 @@ Download and install postman from this url
 ```https://www.getpostman.com/downloads/```
 
 ### Postman Collection
-Once postman is installed, launch the application and import the [DAS Tutorial.postman_collection.json](DAS Tutorial.postman_collection.json) by pressing the import button and selecting the collection file.
+Once postman is installed, launch the application and import the [DAS Tutorial.postman_collection.json](DAS%20Tutorial.postman_collection.json) by pressing the import button and selecting the collection file.
 
 ![Import](images/import.png)
 
@@ -68,6 +68,9 @@ Each request has a number associated with it that indicate the order in which th
 If you wish to restart the tutorial or cleanup what have been created during it, the request 14 and 15 are designed to delete everything stored in Design Automation for your forge APP and the storage that was created during the tutorial.
 To send a request you will simply have to press the "Send" button in postman.  However, make sure to read the instructions below for each request before sending it since some request might require you to enter some information.
 
+![Send button](images/send_button.png)
+
+
 ### 1- Authentication
 [forge documentation](https://forge.autodesk.com/en/docs/oauth/v2/reference/http/authenticate-POST/)
 
@@ -85,7 +88,7 @@ Once the request is completed, postman will save the access_token received in th
 [forge documentation](https://forge.autodesk.com/en/docs/design-automation/v3/reference/http/activities-POST/)
 
 This request to the Design Automation V3 API will create an activity.
-In design automation an activity specify an action that can be executed using a specified engine.
+In the Design Automation API an activity specify an action that can be executed using a specified engine.
 The request body contains the following fields.
 
 ##### id
@@ -118,9 +121,6 @@ will be replaced by the value of the setting with the "settingX" key.
 
 ##### engine
 This define the processing engine to be installed on the machine that will execute the action. (Auto CAD, Inventor, Revit, 3ds Max)
-
-##### commandLine 
-This define the command line to be executed. You use variable that will be replaced before executing your command line. The details of these variables can be found here (TODO ADD A LINK TO THE DOC)
 
 ##### parameters
 These define the inputs and outputs that will need to be provided to execute the action defined.
@@ -188,7 +188,7 @@ Once the request is done, the "objectKey" value from the response body will be a
 
 This request to the Data Management API will create a temporary download url for the input zip file we uploaded to the Object Storage Service during request 5.
 We will provide this url to the Design Automation V3 API during request 11 when we send our work item to be executed.
-The design Automation API will use this url to download our zip file before executing the command line we defined inside our activity during request 2.
+The Design Automation API will use this url to download our zip file before executing the command line we defined inside our activity during request 2.
 Once the request is done, the "signedUrl" value from the response body will be automatically saved into a variable named "zipFileSignedUrl" that will be used in sub-sequent requests.
 
 ![7- Get Temporary download url for the input zip](images/7_get_zip_tmp_url.png)
@@ -198,7 +198,7 @@ Once the request is done, the "signedUrl" value from the response body will be a
 
 This request to the Data Management API will create a temporary download url for the script file we uploaded to the Object Storage Service during request 6.
 We will provide this url to the Design Automation V3 API during request 11 when we send our work item to be executed.
-The design Automation API will use this url to download our script file before executing the command line we defined inside our activity during request 2.
+The Design Automation API will use this url to download our script file before executing the command line we defined inside our activity during request 2.
 Once the request is done, the "signedUrl" value from the response body will be automatically saved into a variable named "scriptFileSignedUrl" that will be used in sub-sequent requests.
 
 ![8- Get Temporary download url for the input script](images/8_get_zip_tmp_url.png)
@@ -209,7 +209,7 @@ Once the request is done, the "signedUrl" value from the response body will be a
  
  This request to the Data Management API will create a temporary upload url to a new object in the Object Storage Service.
  We will provide this url to the Design Automation V3 API during request 11 when we send our work item to be executed.
- The design Automation API will use this url to upload the resulting zip file after executing the command line we defined inside our activity during request 2.
+ The Design Automation API will use this url to upload the resulting zip file after executing the command line we defined inside our activity during request 2.
  Once the request is done, the "signedUrl" value from the response body will be automatically saved into a variable named "outputFileSignedUrl" that will be used in sub-sequent requests.
  
 ![9- Get temporary upload url for the output script](images/9_get_upload_url.png)

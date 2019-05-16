@@ -1,6 +1,10 @@
 # FDA-postman-tutorial
 Basic tutorial on how to run a 3ds Max script in Design Automation V3
 
+## Getting help
+Any question related to Design Automation can be posted on [stackoverflow](https://stackoverflow.com/questions/tagged/autodesk-designautomation).
+Make sure to add the ```autodesk-designautomation``` tag to your question(s).
+
 ## Description
 This tutorial will demonstrate how to use Design Automation V3 to automate the execution of a script on a 3ds Max scene using postman.
 You can use your own script and max scene or the [samples](samples) provided.

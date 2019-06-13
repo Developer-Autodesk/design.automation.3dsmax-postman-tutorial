@@ -238,7 +238,9 @@
 				],
 				"body": {
 					"mode": "file",
-					"file": {}
+					"file": {
+						"src": ""
+					}
 				},
 				"url": {
 					"raw": "https://developer.api.autodesk.com/oss/v2/buckets/{{bucketKey}}/objects/{{$guid}}",
@@ -287,7 +289,9 @@
 				],
 				"body": {
 					"mode": "file",
-					"file": {}
+					"file": {
+						"src": ""
+					}
 				},
 				"url": {
 					"raw": "https://developer.api.autodesk.com/oss/v2/buckets/{{bucketKey}}/objects/{{$guid}}",
@@ -427,8 +431,7 @@
 					"script": {
 						"id": "e2b1300a-e97d-4f23-be06-b2512e5c85e7",
 						"exec": [
-							"var uuid = require('uuid');",
-							"postman.setGlobalVariable(\"outputFileObjectKey\", uuid.v4());"
+							"postman.setGlobalVariable(\"outputFileObjectKey\", \"outputFileObjectKey\");"
 						],
 						"type": "text/javascript"
 					}
@@ -610,10 +613,6 @@
 						"value": "Bearer {{accessToken}}"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "https://developer.api.autodesk.com/da/us-east/v3/workitems/{{workitemId}}",
 					"protocol": "https",

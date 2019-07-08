@@ -95,10 +95,10 @@ The request body contains the following fields.
 The id of the activity to be created.  This should be unique for a given forge app.
 
 ##### commandLine 
-This define the command line to be executed. You use variable that will be replaced before executing your command line.
-This mechanism let you replace file path(s) value in command line that you tested locally with file path(s) that will make sense once the execution is launched in the Design Automation environment.
+This defines the command line to be executed. You can use variables that will be replaced before executing your command line.
+This mechanism lets you replace file path(s) value in command line that you tested locally with file path(s) that will make sense once the execution is launched in the Design Automation environment.
 
-Here are some example of variables can be used:
+Here are some examples of variables which can be used:
 
 ```$(engine.path)``` 
 will be replaced by the path where the engine is installed.
@@ -118,6 +118,10 @@ will write to a file the value of the setting with "settingX" key and be replace
 
 ```$(setting[settingX].value)``` 
 will be replaced by the value of the setting with the "settingX" key.
+
+In this sample, we use ```3dsmaxbatch.exe``` to run a maxscript against a 3dsmax scene. We set the verbosity to 5 to ease debugging (anything logged with ```logsystem.logEntry``` will appear in our job report). See the full documentation for 3dsmaxbatch command line arguments [here](https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2019/ENU/3DSMax-Batch/files/GUID-48A78515-C24B-4E46-AC5F-884FBCF40D59-htm.html).
+
+```"$(engine.path)/3dsmaxbatch.exe" -sceneFile "$(args[InputZip].path)/$(args[MaxFileName].value)" "$(args[MaxscriptToExecute].path)" -v 5```
 
 ##### engine
 This define the processing engine to be installed on the machine that will execute the action. (Auto CAD, Inventor, Revit, 3ds Max)

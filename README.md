@@ -10,7 +10,7 @@ Basic tutorial on how to run a 3ds Max script in Design Automation V3
 [![Design-Automation](https://img.shields.io/badge/Design%20Automation-v3-green.svg)](http://developer.autodesk.com/)
 
 [![Postman](https://img.shields.io/badge/Postman-v7-orange.svg)](https://www.getpostman.com/)
-[![Inventor](https://img.shields.io/badge/Inventor-2019-orange.svg)](http://developer.autodesk.com/)
+[![3dsMax](https://img.shields.io/badge/3ds%20Max-2020-00aaaa.svg)](http://developer.autodesk.com/)
 
 ![Beginner](https://img.shields.io/badge/Level-Beginner-green.svg)
 [![License](http://img.shields.io/:license-MIT-blue.svg)](http://opensource.org/licenses/MIT)

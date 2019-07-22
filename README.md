@@ -1,5 +1,19 @@
-# FDA-postman-tutorial
+# Forge Design Automation for 3ds Max - Postman - step-by-step Tutorial
 Basic tutorial on how to run a 3ds Max script in Design Automation V3
+
+![Platforms](https://img.shields.io/badge/Web-Windows|MacOS-lightgray.svg)
+[![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](http://developer.autodesk.com/)
+[![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](http://autodesk-forge.github.io/)
+[![OSS](https://img.shields.io/badge/OSS-v2-green.svg)](http://developer.autodesk.com/)
+[![Data-Management](https://img.shields.io/badge/Data%20Management-v1-green.svg)](http://developer.autodesk.com/)
+[![Webhook](https://img.shields.io/badge/Webhook-v1-green.svg)](http://developer.autodesk.com/)
+[![Design-Automation](https://img.shields.io/badge/Design%20Automation-v3-green.svg)](http://developer.autodesk.com/)
+
+[![Postman](https://img.shields.io/badge/Postman-v7-orange.svg)](https://www.getpostman.com/)
+[![Inventor](https://img.shields.io/badge/Inventor-2019-orange.svg)](http://developer.autodesk.com/)
+
+![Beginner](https://img.shields.io/badge/Level-Beginner-green.svg)
+[![License](http://img.shields.io/:license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 
 ## Getting help
 Any question related to Design Automation can be posted on [stackoverflow](https://stackoverflow.com/questions/tagged/autodesk-designautomation).

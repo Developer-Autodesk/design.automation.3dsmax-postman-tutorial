@@ -135,7 +135,7 @@ will be replaced by the value of the setting with the "settingX" key.
 
 In this sample, we use ```3dsmaxbatch.exe``` to run a maxscript against a 3dsmax scene. We set the verbosity to 5 to ease debugging (anything logged with ```logsystem.logEntry``` will appear in our job report). See the full documentation for 3dsmaxbatch command line arguments [here](https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2019/ENU/3DSMax-Batch/files/GUID-48A78515-C24B-4E46-AC5F-884FBCF40D59-htm.html).
 
-```"$(engine.path)/3dsmaxbatch.exe" -sceneFile "$(args[InputZip].path)/$(args[MaxFileName].value)" "$(args[MaxscriptToExecute].path)" -v 5```
+```"$(engine.path)/3dsmaxbatch.exe" -sceneFile "$(args[InputMaxScene].path)" "$(args[MaxscriptToExecute].path)" -v 5```
 
 ##### engine
 This define the processing engine to be installed on the machine that will execute the action. (Auto CAD, Inventor, Revit, 3ds Max)
@@ -143,17 +143,14 @@ This define the processing engine to be installed on the machine that will execu
 ##### parameters
 These define the inputs and outputs that will need to be provided to execute the action defined.
 
-###### InputZip
-For this tutorial we define an input parameter that will be used to downloaded and unzipped a zip file inside a folder name "workingFolder".  This input zip will contain a max scene and all it dependencies.
-
-###### MaxFileName
-For this tutorial we define an input string parameter that will be used to provide the name of the 3ds Max file inside the zip file provided by the "InputZip" parameter
+###### InputMaxScene
+For this tutorial, we define an input parameter that will be used to download a 3ds Max scene that will be loaded before executing the script.
 
 ###### MaxscriptToExecute
-For this tutorial we define an input parameter that will be used to downloaded a maxscript file that will be named maxscriptToExecute.ms once downloaded.
+For this tutorial, we define an input parameter that will be used to downloaded a maxscript file that will be named maxscriptToExecute.ms once downloaded.
 
 ###### outputZip
-For this tutorial we define an output parameter that will zip the sub-folder named "workingFolder" at the end of the execution and upload it.
+For this tutorial, we define an output parameter that will zip the sub-folder named "workingFolder" at the end of the execution and upload it.
 
 ![1- Create Activity](images/2_create_activity.png)
 
@@ -257,13 +254,11 @@ The id is made of 3 parts, first the forge app nickname followed by the '.' char
 ##### arguments
 This section contains all the arguments that need to be passed to the activity selected by the activityId.  
 These need to match one for one what we defined as parameters in our activity during request number 2.
- 
-###### MaxFileName
-This argument provide the name of the 3ds Max file inside InputZip to load before running the script.
-You should change this value to reflect what is inside you inputZip if you are not using the [samples](samples).
 
-###### InputZip
-This argument provide the signed url we created during request number 7.  This url will be used to download the input zip file.
+###### InputMaxScene
+This argument provide the signed url we created during request number 7.  This url will be used to download the input file.  
+If your are using a zip file like the one provided in the tutorial [samples](samples), you will need to provide the relative path to your 3ds Max file inside your zip file in the ```pathInZip``` attribute.
+If you would prefer to directly pass the 3ds Max file and not a zip file, simply remove the pathInZip attribute.
  
 ###### MaxscriptToExecute
 This argument provide the signed url we created during request number 8.  This url will be used to download the input script file.
@@ -280,7 +275,7 @@ This argument provide the signed url we created during request number 9.  This u
 This request to the Design Automation API V3 will query the status of the work item.
 We can use this request to determine when the work item is done executing.
 However, it is important to note that you can also define an url to be called once the work item is done instead of polling the status from this url.
-This can be done inside the request that submit the work item but this is outside of the scope of this tutorial. (TODO add documentation link)
+This can be done inside the request that submit the work item but this is outside of the scope of this tutorial for more information see the documentation [here](https://forge.autodesk.com/en/docs/design-automation/v3/developers_guide/callbacks/).
 The request should be repeated until the status value inside the body pass from "pending" to "inprogress" to "success".
 Once you reached the "success" status it means that your work item has finished executing.
 You can use "reportUrl" value to download the log file of your work item execution if you wish to take a look.
